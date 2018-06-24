@@ -1,66 +1,84 @@
 
-
-
-export function loadMyMovieList() {
+export function loadFullData() {
   return function (dispatch) {
-    dispatch({
-      type: "LOAD_MY_MOVIE_LIST"
+    fetch("https://mjm-cocktail-app.herokuapp.com/getAllData").then( (response) => {
+      return response.json();
+    }).then(
+      (result) => {
+        dispatch(fullDataLoaded(result));
+      });
+  };
+}
+      
+export function fullDataLoaded(result) {
+  return {
+    type: "FULLDATA_LOADED",
+    value: result
+  };
+}
+
+
+export function loadFavorites() {
+  return function (dispatch) {
+    fetch("https://mjm-cocktail-app.herokuapp.com/favorites").then( (response) => {
+      return response.json();
+    }).then((favorites) => {
+      dispatch(favoritesLoaded(favorites));
     });
-    fetch("/movies").then( (response) => {
-      return response.json()}).then((movies) => {
-        dispatch(myMovieListLoaded(movies));
-      });
-    };
-  }
+  };
+}
       
-  export function myMovieListLoaded(movies) {
-    return {
-      type: "MY_MOVIE_LIST_LOADED",
-      value: movies
-    };
-  }
+export function favoritesLoaded(favorites) {
+  return {
+    type: "FAVORITES_LOADED",
+    value: favorites
+  };
+}
+
+// export function showUser(id) {
+//   return function (dispatch) {
+//     fetch("/user/" + id).then((response) => {
+//       return response.json();
+//     }).then(() => {
+//       dispatch(loadUsers());
+//     });
+//   };
+// }
   
-  export function loadSearch(searchTerm) {
-    return function (dispatch) {
-      dispatch({
-        type: "LOAD_SEARCH"
-      });
-      fetch(`https://api.themoviedb.org/3/search/multi?query=${searchTerm}&api_key=302e3cac4334e8bc5a388a1ebc683dda`)
-      .then( (response) => {
-        return response.json();
-      }).then((movies) => {
-        dispatch(searchLoaded(movies));
-      });
-    };
-  }
   
-  export function searchLoaded(movies) {
-    return {
-      type: "SEARCH_RESULTS_LOADED",
-      value: movies.results
-    };
-  }
-  
-  export function saveMyMovie(movie) {
-    return function (dispatch) {
-      fetch("/movies", {
-        method: "POST",
-        headers: {"Content-Type": "application/json"},
-        body: JSON.stringify(movie)
-      }).then(() => {
-        dispatch(loadMyMovieList());
-      });
-    };
-  }
+export function addFav(fav) {
+  return function (dispatch) {
+    fetch("https://mjm-cocktail-app.herokuapp.com/favorite", {
+      method: "POST",
+      headers: {"Content-Type": "application/json"},
+      body: JSON.stringify(fav)
+    }).then(() => {
+      dispatch(loadFavorites());
+    });
+  };
+}
+
+
       
-  export function removeMyMovie(id) {
-    return function (dispatch) {
-      fetch("/movies/" + id, {
-        method: "DELETE"
-      }).then(res => res.json())
-        .then(() => {
-          dispatch(loadMyMovieList());
-        });
-    };
-  }
-  
+export function deleteFav(id) {
+  return function (dispatch) {
+    fetch("https://mjm-cocktail-app.herokuapp.com/favorite/" + id, {
+      method: "DELETE"
+    }).then(res => res.json())
+      .then(() => {
+        dispatch(loadFavorites());
+      });
+  };
+}
+
+export function addDrink(data) {
+  return function (dispatch) {
+    fetch("https://mjm-cocktail-app.herokuapp.com/postDrink", {
+      method: "POST",
+      headers: {"Content-Type": "application/json"},
+      body: JSON.stringify(data)
+    }).then(() => {
+      dispatch(loadFullData());
+    });
+  };
+}
