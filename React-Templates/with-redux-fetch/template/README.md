@@ -1,13 +1,24 @@
 
+Mike J Mitchell React Templates!
+
+"With Redux Fetch"
+****************************************** 
+First:
+npm i create-custom-react-app.
+****************************************** 
+Then....
 install with template: create-custom-react-app test-app -t ...path/with-redux-fetch
 
-****************************************** 
 The final directory should contain a folder called "template" that contains the template itself.
 
 ******************************************
-!!!!!Before running app, install npm packages for client:
+Then...
+install npm packages for client:
 
-npm i redux react-redux redux-thunk react-router-dom prop-types
+npm i redux react-redux redux-thunk prop-types
+npm i --save history
+npm i --save react-router-dom
+npm i classnames --save
 
 ....and for server:
 
