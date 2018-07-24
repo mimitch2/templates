@@ -12,6 +12,10 @@ install with template: create-custom-react-app test-app -t ...path/with-redux-fe
 The final directory should contain a folder called "template" that contains the template itself.
 
 ******************************************
+
+Then...
+Move the node-modules and yarnlock files into the client directory
+
 Then...
 install npm packages for client:
 
