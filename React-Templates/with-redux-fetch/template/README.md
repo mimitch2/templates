@@ -22,7 +22,6 @@ install npm packages for client:
 npm i redux react-redux redux-thunk prop-types
 npm i --save history
 npm i --save react-router-dom
-npm i classnames --save
 
 ....and for server:
 
