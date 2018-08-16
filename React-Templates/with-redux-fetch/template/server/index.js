@@ -23,6 +23,7 @@ mongoose.connect(process.env.mongodburi, {useNewUrlParser: true}).then(
 );
 
 //************************** CHANGE ROUTES BELOW ****************************/
+
 const FooRoutes = require ("./routes/FooRoutes")
 app.use(FooRoutes)
 
@@ -32,6 +33,7 @@ app.use(FooRoutes)
 //   res.sendFile(path.join(__dirname + '/public/index.html'));
 // });
 
+//************ run this below! ********************************************/
 
 const port = process.env.PORT || 3001;
 app.listen(port, (err) => {
@@ -41,7 +43,8 @@ app.listen(port, (err) => {
   console.log("Web server is now running on port " + port);
 });
 
-// <-----------handle bad request------------->
+// <----------- handle bad request------------->
+
 app.use(function (request,response) {
   response.send("NOPE!!!!");
 });
