@@ -3,13 +3,18 @@ import './css/App.css';
 import Foo from './components/Foo.js';//****Change to container if using */
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 
-  class App extends Component {
-         render() {
+class App extends Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+
+    }
+  }
+
+  render() {
     return (
-            <div className="App">
-     MAKE SOMETHING FUCKING AWESOME
-      </div>
-    );
+      <div>CONTENT</div>
+    )
   }
 }
 
