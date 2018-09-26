@@ -1,6 +1,7 @@
 
 export default {
-  foo: ["HELLO"]
+  fullData: ["FullData"],
+  favorites: ["Favorites"]
     
-  };
+};
   

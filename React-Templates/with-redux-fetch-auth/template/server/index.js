@@ -1,13 +1,14 @@
 const express = require("express");
-const app = express();
 const bodyParser = require("body-parser");
 const cors = require('cors')
 const mongoose = require("mongoose");
+const userRoutes = require("./routes/UserRoutes");
+const sessionRoutes = require("./routes/SessionRoutes");
+const authenticationRoutes = require("./routes/AuthenticationRoutes");
 // const path = require('path');
 require("dotenv").config();
 
-app.use(bodyParser.json());
-app.use(cors())
+
 
 mongoose.set("debug", true);
 mongoose.Promise = global.Promise;
@@ -26,10 +27,8 @@ mongoose.connect(process.env.mongodburi, {useNewUrlParser: true}).then(
 
 //************************** CHANGE ROUTES BELOW ****************************/
 
-const FooRoutes = require ("./routes/FooRoutes")
-const userRoutes = require("./routes/UserRoutes");
-const sessionRoutes = require("./routes/SessionRoutes");
-const authenticationRoutes = require("./routes/AuthenticationRoutes");
+// const FooRoutes = require ("./routes/FooRoutes")
+
 
 //****************** only use this if hosting both app and server on heroku ******/
 
@@ -40,6 +39,10 @@ const authenticationRoutes = require("./routes/AuthenticationRoutes");
 //************ run this below! ********************************************/
 
 function startWebServer(){
+  const app = express();
+
+  app.use(bodyParser.json());
+  app.use(cors())
 
   app.get("/api/publicinformation", function (req, res) {
     res.send("Anyone can see this");
@@ -47,7 +50,7 @@ function startWebServer(){
 
   app.use(express.static("public"));
   app.use(bodyParser.json());
-  app.use(FooRoutes);
+  // app.use(FooRoutes);
   app.use(userRoutes);
   app.use(sessionRoutes);
   app.use(authenticationRoutes);
@@ -56,18 +59,18 @@ function startWebServer(){
     res.send("You got the data. You are authenticated");
   });
   app.get("/api/secret", function (req, res) {
-    res.send(`The current user is ${req.user.username}`);
+    res.send(`${req.user.username}`);
   });
 
   //heroku injects the port number into the PORT env value
   const port = process.env.PORT || 3001;
   app.listen(port, () => {
-    console.log(`Listening on port:${port}`);
+    console.log(`We are listening on port:${port}`);
   });
   }
 
 // <----------- handle bad request------------->
 
-app.use(function (request,response) {
-  response.send("NOPE!!!!");
-});
+// app.use(function (request,response) {
+//   response.send("NOPE!!!!");
+// });

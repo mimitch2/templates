@@ -21,7 +21,7 @@ class Secret extends Component {
 
   render() {
     return (
-      <h1>{this.state.message}</h1>
+      <p style={{color: "#9d9d9d", marginTop: "15px"}}>{this.state.message}</p>
     );
   }
 }
